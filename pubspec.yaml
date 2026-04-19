@@ -5,9 +5,9 @@ description: >-
   prevent flickering. Ideal for camera apps and other UIs that need to
   rotate elements while keeping the screen layout fixed.
 version: 0.1.0
-homepage: https://github.com/ssgz/sensor_device_orientation
-repository: https://github.com/ssgz/sensor_device_orientation
-issue_tracker: https://github.com/ssgz/sensor_device_orientation/issues
+homepage: https://github.com/thesims1004/sensor_device_orientation
+repository: https://github.com/thesims1004/sensor_device_orientation
+issue_tracker: https://github.com/thesims1004/sensor_device_orientation/issues
 
 environment:
   sdk: ^3.10.4
@@ -22,5 +22,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+
+screenshots:
+  - description: >-
+      Screen locked to portrait. Device held upright — orientation reads
+      portraitUp (quarterTurns: 0). All rotated UI elements sit upright.
+    path: doc/screenshots/portrait_up.jpg
+  - description: >-
+      Same app, same portrait-locked screen, but the device is tilted
+      counter-clockwise. Orientation is now landscapeLeft (quarterTurns: 1)
+      and every rotated element follows the physical device pose.
+    path: doc/screenshots/landscape_left.jpg
 
 flutter:

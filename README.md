@@ -16,6 +16,15 @@ while keeping the screen layout fixed in portrait.
 | `native_device_orientation` | ✅ | ⚠️ Crashes on some Android devices (Fragment NPE) |
 | **`sensor_device_orientation`** | ✅ | ✅ Pure Dart on top of `sensors_plus` |
 
+## Demo
+
+Same app, same portrait-locked screen. Only the physical device pose changes —
+every `SensorRotatedBox` follows it.
+
+| Portrait (device upright) | Landscape left (device tilted CCW) |
+|:---:|:---:|
+| ![portraitUp](https://raw.githubusercontent.com/thesims1004/sensor_device_orientation/main/doc/screenshots/portrait_up.jpg) | ![landscapeLeft](https://raw.githubusercontent.com/thesims1004/sensor_device_orientation/main/doc/screenshots/landscape_left.jpg) |
+
 ## Install
 
 ```yaml
