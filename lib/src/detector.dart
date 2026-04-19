@@ -60,7 +60,7 @@ class SensorDeviceOrientationDetector {
 
   StreamSubscription<AccelerometerEvent>? _sub;
   double _filteredX = 0;
-  double _filteredY = -9.8; // assume portraitUp at startup
+  double _filteredY = 9.8; // assume portraitUp at startup
   bool _primed = false;
 
   SensorDeviceOrientation _current = SensorDeviceOrientation.portraitUp;
@@ -121,8 +121,9 @@ class SensorDeviceOrientationDetector {
   /// - **+y**: top edge of the device when held in portraitUp
   /// - **+z**: out of the screen
   ///
-  /// Gravity is roughly (0, -9.8, 0) in portraitUp (gravity pulls
-  /// the bottom of the device down, so the y-component reads negative).
+  /// Accelerometer measures the reaction force (not gravity itself), so
+  /// when the device is stationary in portraitUp, it reads ~(0, +9.8, 0).
+  /// See https://developer.android.com/reference/android/hardware/SensorEvent
   SensorDeviceOrientation _classify(
     double x,
     double y,
@@ -133,19 +134,23 @@ class SensorDeviceOrientationDetector {
 
     // Device is lying mostly flat — keep previous orientation.
     if (ax < _flatThreshold && ay < _flatThreshold) {
-      return previous == SensorDeviceOrientation.flat ? previous : previous;
+      return previous;
     }
 
     // Determine candidate from dominant axis.
     final SensorDeviceOrientation candidate;
     if (ay > ax) {
-      candidate = y < 0
+      candidate = y > 0
           ? SensorDeviceOrientation.portraitUp
           : SensorDeviceOrientation.portraitDown;
     } else {
+      // CCW 90° rotation (top → left, "landscapeLeft"): the device's +x
+      // axis now points up in world space, so reaction force reads
+      // along device-local +x → a_x ≈ +9.8.
+      // CW 90° rotation (top → right, "landscapeRight"): a_x ≈ -9.8.
       candidate = x > 0
-          ? SensorDeviceOrientation.landscapeRight
-          : SensorDeviceOrientation.landscapeLeft;
+          ? SensorDeviceOrientation.landscapeLeft
+          : SensorDeviceOrientation.landscapeRight;
     }
 
     if (candidate == previous) return previous;
