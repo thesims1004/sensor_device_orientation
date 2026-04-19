@@ -1,0 +1,26 @@
+name: sensor_device_orientation
+description: >-
+  Sensor-based physical device orientation detection that works even when
+  screen rotation is locked. Built on accelerometer data with hysteresis to
+  prevent flickering. Ideal for camera apps and other UIs that need to
+  rotate elements while keeping the screen layout fixed.
+version: 0.1.0
+homepage: https://github.com/ssgz/sensor_device_orientation
+repository: https://github.com/ssgz/sensor_device_orientation
+issue_tracker: https://github.com/ssgz/sensor_device_orientation/issues
+
+environment:
+  sdk: ^3.10.4
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sensors_plus: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
